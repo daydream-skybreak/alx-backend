@@ -5,6 +5,12 @@ import math
 from typing import List, Tuple
 
 
+def index_range(page: int, page_size: int) -> Tuple:
+    """function to return start and end index"""
+    end = page_size * page
+    return end - page_size, end
+
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -13,12 +19,6 @@ class Server:
     def __init__(self):
         """initializes the object"""
         self.__dataset = None
-
-    @staticmethod
-    def index_range(page: int, page_size: int) -> Tuple:
-        """function to return start and end index"""
-        end = page_size * page
-        return end - page_size, end
 
     def dataset(self) -> List[List]:
         """Cached dataset
@@ -38,5 +38,5 @@ class Server:
         if type(page_size) is not int or page_size < 1:
             raise AssertionError
         self.dataset()
-        begin, end = self.index_range(page, page_size)
+        begin, end = index_range(page, page_size)
         return self.__dataset[begin: end]
