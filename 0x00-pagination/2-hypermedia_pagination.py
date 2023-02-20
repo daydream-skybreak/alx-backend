@@ -47,7 +47,7 @@ class Server:
         next page, previous page, total pages
         """
         data = self.get_page(page, page_size)
-        t_page = math.floor(len(self.__dataset) / page_size)
+        t_page = math.ceil(len(self.__dataset) / page_size)
         return {
             "page_size": page_size,
             "page": page,
