@@ -8,9 +8,10 @@ from typing import List, Tuple
 class Server:
     """Server class to paginate a database of popular baby names.
     """
-    DATA_FILE = "test_file.csv"
+    DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """initializes the object"""
         self.__dataset = None
 
     @staticmethod
