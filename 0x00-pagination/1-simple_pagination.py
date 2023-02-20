@@ -37,6 +37,8 @@ class Server:
             raise AssertionError
         if type(page_size) is not int or page_size < 1:
             raise AssertionError
-        self.dataset()
+        data = self.dataset()
         begin, end = index_range(page, page_size)
-        return self.__dataset[begin: end]
+        if begin > len(data):
+            return []
+        return data[begin: end]
