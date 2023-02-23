@@ -11,6 +11,7 @@ class MRUCache(BaseCaching):
     retrieving items from a dictionary with an MRU
     removal mechanism when the limit is reached.
     """
+
     def __init__(self):
         """Initializes the cache.
         """
