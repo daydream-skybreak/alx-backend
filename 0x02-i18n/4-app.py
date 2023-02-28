@@ -21,14 +21,22 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale() -> str:
     """determines best match from supported languages"""
+    queries = request.query_string.decode('utf-8').split('&')
+    query_table = dict(map(
+        lambda x: (x if '=' in x else '{}='.format(x)).split('='),
+        queries,
+    ))
+    if 'locale' in query_table:
+        if query_table['locale'] in app.config["LANGUAGES"]:
+            return query_table['locale']
     return request.accept_languages.best_match(app.config["LANGUAGES"])
 
 
 @app.route('/')
 def hello() -> str:
     """renders a html element"""
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
