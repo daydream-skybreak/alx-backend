@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Login in Mock"""
+import pytz
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 from typing import Union, Dict
@@ -58,12 +59,13 @@ def get_locale() -> str:
 
 @babel.timezoneselector
 def get_timezone() -> str:
-    timezone = request.args.get('timezone', '')
-    if not(timezone is None):
-        return timezone
-    if g.user and g.user['timezone'] in all_timezones:
-        return g.user['timezone']
-    return app.config['BABEL_DEFAULT_TIMEZONE']
+    timezone = request.args.get('timezone', '').strip()
+    if not timezone and g.user:
+        return g.user.get('timezone', '')
+    try:
+        pytz.timezone(timezone).zone
+    except pytz.exceptions.UnknownTimeZoneError:
+        return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 @app.route('/')
