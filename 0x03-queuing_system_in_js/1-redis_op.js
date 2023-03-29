@@ -1,5 +1,4 @@
 import { createClient, print } from 'redis';
-const redis = require('redis');
 const client = createClient();
 
 client.on('error', err => {
@@ -11,15 +10,15 @@ client.on('connect', () => {
 });
 
 function setNewSchool (schoolName, value) {
-  client.SET(schoolName, value, print)
+  client.SET(schoolName, value, print);
 }
 
-function displaySchoolValue(schoolName) {
-  client.GET(schoolName, (err, reply) => {
-    console.log(reply)
-  })
+function displaySchoolValue (schoolName) {
+  client.GET(schoolName, (_err, reply) => {
+    console.log(reply);
+  });
 }
 
-displaySchoolValue('Holberton')
-setNewSchool('HolbertonSanFrancisco', '100')
-displaySchoolValue('HolbertonSanFrancisco')
+displaySchoolValue('Holberton');
+setNewSchool('HolbertonSanFrancisco', '100');
+displaySchoolValue('HolbertonSanFrancisco');
